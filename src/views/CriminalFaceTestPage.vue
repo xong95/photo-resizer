@@ -114,16 +114,21 @@
             <img :src="previewImage" alt="Analyzed" class="result-image" />
           </div>
 
-          <!-- 최고 범죄 유형 -->
-          <div class="top-result">
+          <!-- 최고 유형 -->
+          <div class="top-result" :class="{ 'good-result': analysisResult.topCrime.isGood }">
             <div class="top-crime-badge">
               <span class="badge-icon">{{ analysisResult.topCrime.icon }}</span>
               <span class="badge-text">{{ analysisResult.topCrime.name }}</span>
             </div>
             <div class="top-percentage">{{ analysisResult.topCrime.percentage }}%</div>
             <p class="top-description">
-              당신은 <strong>{{ analysisResult.topCrime.name }}</strong> 관련 범죄자와
-              가장 높은 유사도를 보입니다!
+              <template v-if="analysisResult.topCrime.isGood">
+                축하합니다! 당신은 <strong>{{ analysisResult.topCrime.name }}</strong>을 가지고 있네요! 😊
+              </template>
+              <template v-else>
+                당신은 <strong>{{ analysisResult.topCrime.name }}</strong> 관련 범죄자와
+                가장 높은 유사도를 보입니다!
+              </template>
             </p>
           </div>
 
@@ -242,7 +247,7 @@ const startAnalysis = async () => {
   errorMessage.value = null
 
   try {
-    // 얼굴 감지는 시도하지만, 실패해도 계속 진행
+    // 얼굴 감지 활성화 (이미지 리사이즈로 개선)
     analysisResult.value = await analyzeFace(selectedFile.value, { skipFaceDetection: false })
   } catch (error) {
     console.error('분석 실패:', error)
@@ -593,6 +598,10 @@ const resetTest = () => {
   border-radius: 16px;
   color: white;
   margin-bottom: 32px;
+}
+
+.top-result.good-result {
+  background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
 }
 
 .top-crime-badge {

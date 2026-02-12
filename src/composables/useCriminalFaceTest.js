@@ -1,22 +1,56 @@
 import { ref } from 'vue'
 import * as blazeface from '@tensorflow-models/blazeface'
+import * as tf from '@tensorflow/tfjs'
 
 export const useCriminalFaceTest = () => {
   const isAnalyzing = ref(false)
   const error = ref(null)
   const faceDetectionModel = ref(null)
+  const tfReady = ref(false)
 
-  // 범죄 카테고리 정의
+  // 관상 카테고리 정의
   const crimeCategories = [
-    { id: 'fraud', name: '사기', icon: '💰', color: '#f59e0b' },
-    { id: 'drug', name: '마약', icon: '💊', color: '#ef4444' },
-    { id: 'assault', name: '폭행', icon: '👊', color: '#dc2626' },
-    { id: 'theft', name: '절도', icon: '🥷', color: '#6366f1' },
-    { id: 'embezzlement', name: '횡령', icon: '💼', color: '#8b5cf6' },
-    { id: 'cybercrime', name: '사이버범죄', icon: '💻', color: '#3b82f6' },
-    { id: 'gambling', name: '도박', icon: '🎲', color: '#ec4899' },
-    { id: 'other', name: '기타', icon: '❓', color: '#64748b' }
+    { id: 'good', name: '선한상', icon: '😇', color: '#10b981', isGood: true },
+    { id: 'honest', name: '정직한상', icon: '🤝', color: '#14b8a6', isGood: true },
+    { id: 'fraud', name: '사기상', icon: '💰', color: '#f59e0b', isGood: false },
+    { id: 'drug', name: '마약상', icon: '💊', color: '#ef4444', isGood: false },
+    { id: 'assault', name: '폭행상', icon: '👊', color: '#dc2626', isGood: false },
+    { id: 'theft', name: '절도상', icon: '🥷', color: '#6366f1', isGood: false },
+    { id: 'embezzlement', name: '횡령상', icon: '💼', color: '#8b5cf6', isGood: false },
+    { id: 'cybercrime', name: '사이버범죄상', icon: '💻', color: '#3b82f6', isGood: false },
+    { id: 'gambling', name: '도박상', icon: '🎲', color: '#ec4899', isGood: false },
+    { id: 'arson', name: '방화범상', icon: '🔥', color: '#f97316', isGood: false },
+    { id: 'harassment', name: '추행범상', icon: '🚫', color: '#be123c', isGood: false },
+    { id: 'dui', name: '음주운전상', icon: '🍺', color: '#ea580c', isGood: false },
+    { id: 'other', name: '기타상', icon: '❓', color: '#64748b', isGood: false }
   ]
+
+  /**
+   * TensorFlow.js 백엔드 초기화
+   */
+  const initializeTensorFlow = async () => {
+    if (!tfReady.value) {
+      try {
+        // WebGL 백엔드 시도
+        await tf.setBackend('webgl')
+        await tf.ready()
+        console.log('TensorFlow.js backend:', tf.getBackend())
+        tfReady.value = true
+      } catch (err) {
+        console.warn('WebGL backend failed, trying CPU:', err)
+        try {
+          // CPU 백엔드로 폴백
+          await tf.setBackend('cpu')
+          await tf.ready()
+          console.log('TensorFlow.js backend:', tf.getBackend())
+          tfReady.value = true
+        } catch (cpuErr) {
+          console.error('All backends failed:', cpuErr)
+          throw new Error('TensorFlow.js 초기화 실패')
+        }
+      }
+    }
+  }
 
   /**
    * BlazeFace 모델을 로드합니다
@@ -24,7 +58,13 @@ export const useCriminalFaceTest = () => {
   const loadFaceDetectionModel = async () => {
     if (!faceDetectionModel.value) {
       try {
+        // 먼저 TensorFlow 초기화
+        await initializeTensorFlow()
+
+        // 모델 로드
+        console.log('Loading BlazeFace model...')
         faceDetectionModel.value = await blazeface.load()
+        console.log('BlazeFace model loaded successfully')
       } catch (err) {
         console.error('Face detection model load failed:', err)
         throw new Error('얼굴 인식 모델 로드 실패')
@@ -54,13 +94,31 @@ export const useCriminalFaceTest = () => {
 
   /**
    * 이미지를 Canvas에 그립니다 (BlazeFace가 더 잘 인식하도록)
+   * 큰 이미지는 리사이즈 (BlazeFace는 작은 이미지를 더 잘 인식)
    */
-  const imageToCanvas = (image) => {
+  const imageToCanvas = (image, maxSize = 640) => {
     const canvas = document.createElement('canvas')
-    canvas.width = image.width
-    canvas.height = image.height
-    const ctx = canvas.getContext('2d')
-    ctx.drawImage(image, 0, 0)
+
+    // 이미지가 너무 크면 리사이즈
+    let width = image.width
+    let height = image.height
+
+    if (width > maxSize || height > maxSize) {
+      if (width > height) {
+        height = (height / width) * maxSize
+        width = maxSize
+      } else {
+        width = (width / height) * maxSize
+        height = maxSize
+      }
+    }
+
+    canvas.width = width
+    canvas.height = height
+
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
+    ctx.drawImage(image, 0, 0, width, height)
+
     return canvas
   }
 
@@ -74,15 +132,18 @@ export const useCriminalFaceTest = () => {
       // Canvas로 변환 (BlazeFace가 더 잘 인식함)
       const canvas = imageToCanvas(image)
 
+      console.log('Detecting faces in canvas:', canvas.width, 'x', canvas.height)
+
       // 얼굴 감지 (returnTensors: false로 설정)
       const predictions = await model.estimateFaces(canvas, false)
 
-      console.log('Detected faces:', predictions.length)
+      console.log('Detected faces:', predictions.length, predictions)
 
       return predictions
     } catch (err) {
       console.error('Face detection failed:', err)
-      throw new Error('얼굴 감지 실패')
+      // 에러를 throw하지 않고 빈 배열 반환
+      return []
     }
   }
 
@@ -103,21 +164,22 @@ export const useCriminalFaceTest = () => {
 
       // 얼굴 감지 (선택적)
       if (!options.skipFaceDetection) {
-        try {
-          faces = await detectFace(image)
+        faces = await detectFace(image)
 
-          // 얼굴이 감지되지 않으면 경고
-          if (!faces || faces.length === 0) {
-            faceDetectionWarning = '얼굴을 감지하지 못했습니다'
-          }
+        // 얼굴이 감지되지 않으면 경고
+        if (!faces || faces.length === 0) {
+          // faceDetectionWarning = '얼굴을 감지하지 못했습니다'
+          console.log('No faces detected, but continuing with analysis')
+        }
 
-          // 여러 얼굴이 감지되면 경고
-          if (faces.length > 1) {
-            faceDetectionWarning = `${faces.length}명의 얼굴이 감지되었습니다`
-          }
-        } catch (err) {
-          console.error('Face detection error:', err)
-          faceDetectionWarning = '얼굴 감지 중 오류가 발생했습니다'
+        // 여러 얼굴이 감지되면 경고
+        if (faces.length > 1) {
+          faceDetectionWarning = `${faces.length}명의 얼굴이 감지되었습니다`
+        }
+
+        // 얼굴이 감지되면 성공 로그
+        if (faces.length === 1) {
+          console.log('✓ Face detected successfully!')
         }
       }
 
