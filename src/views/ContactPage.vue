@@ -8,9 +8,13 @@
         <p>
           서비스 이용 중 문의사항, 버그 제보, 기능 제안 등이 있으시면 언제든지 연락 주세요.
         </p>
+
+        <p>
+          Email : <a href="mailto:1901402@naver.com">1901402@naver.com</a>
+        </p>
       </section>
 
-      <div class="contact-form">
+      <!-- <div class="contact-form">
         <div class="form-group">
           <label for="name" class="form-label">이름</label>
           <input
@@ -66,7 +70,7 @@
         <div v-if="submitMessage" :class="['message', submitMessage.type]">
           {{ submitMessage.text }}
         </div>
-      </div>
+      </div> -->
 
       <section class="content-section info-section">
         <h2>💡 자주 묻는 질문</h2>
