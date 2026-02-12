@@ -56,7 +56,7 @@ const route = useRoute()
 
 // 메인 페이지와 범죄자 관상 테스트 페이지에서는 헤더/푸터 숨김
 const showHeaderFooter = computed(() => {
-  return route.path !== '/' && route.path !== '/criminal-face'
+  return route.path !== '/photo-resize' && route.path !== '/criminal-face'
 })
 </script>
 
