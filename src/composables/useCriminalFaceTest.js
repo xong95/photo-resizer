@@ -1,12 +1,10 @@
 import { ref } from 'vue'
-import * as blazeface from '@tensorflow-models/blazeface'
-import * as tf from '@tensorflow/tfjs'
+import * as faceapi from 'face-api.js'
 
 export const useCriminalFaceTest = () => {
   const isAnalyzing = ref(false)
   const error = ref(null)
-  const faceDetectionModel = ref(null)
-  const tfReady = ref(false)
+  const modelsLoaded = ref(false)
 
   // 관상 카테고리 정의
   const crimeCategories = [
@@ -22,55 +20,32 @@ export const useCriminalFaceTest = () => {
     { id: 'arson', name: '방화범상', icon: '🔥', color: '#f97316', isGood: false },
     { id: 'harassment', name: '추행범상', icon: '🚫', color: '#be123c', isGood: false },
     { id: 'dui', name: '음주운전상', icon: '🍺', color: '#ea580c', isGood: false },
-    { id: 'other', name: '기타상', icon: '❓', color: '#64748b', isGood: false }
+    // { id: 'other', name: '기타상', icon: '❓', color: '#64748b', isGood: false }
   ]
 
   /**
-   * TensorFlow.js 백엔드 초기화
-   */
-  const initializeTensorFlow = async () => {
-    if (!tfReady.value) {
-      try {
-        // WebGL 백엔드 시도
-        await tf.setBackend('webgl')
-        await tf.ready()
-        console.log('TensorFlow.js backend:', tf.getBackend())
-        tfReady.value = true
-      } catch (err) {
-        console.warn('WebGL backend failed, trying CPU:', err)
-        try {
-          // CPU 백엔드로 폴백
-          await tf.setBackend('cpu')
-          await tf.ready()
-          console.log('TensorFlow.js backend:', tf.getBackend())
-          tfReady.value = true
-        } catch (cpuErr) {
-          console.error('All backends failed:', cpuErr)
-          throw new Error('TensorFlow.js 초기화 실패')
-        }
-      }
-    }
-  }
-
-  /**
-   * BlazeFace 모델을 로드합니다
+   * face-api.js 모델 로드
    */
   const loadFaceDetectionModel = async () => {
-    if (!faceDetectionModel.value) {
+    if (!modelsLoaded.value) {
       try {
-        // 먼저 TensorFlow 초기화
-        await initializeTensorFlow()
+        console.log('Loading face-api.js models...')
 
-        // 모델 로드
-        console.log('Loading BlazeFace model...')
-        faceDetectionModel.value = await blazeface.load()
-        console.log('BlazeFace model loaded successfully')
+        // CDN에서 모델 로드 (더 빠르고 간단함)
+        const MODEL_URL = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'
+
+        await Promise.all([
+          faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+          faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL)
+        ])
+
+        modelsLoaded.value = true
+        console.log('face-api.js models loaded successfully')
       } catch (err) {
         console.error('Face detection model load failed:', err)
         throw new Error('얼굴 인식 모델 로드 실패')
       }
     }
-    return faceDetectionModel.value
   }
 
   /**
@@ -127,19 +102,20 @@ export const useCriminalFaceTest = () => {
    */
   const detectFace = async (image) => {
     try {
-      const model = await loadFaceDetectionModel()
+      await loadFaceDetectionModel()
 
-      // Canvas로 변환 (BlazeFace가 더 잘 인식함)
+      // Canvas로 변환
       const canvas = imageToCanvas(image)
 
       console.log('Detecting faces in canvas:', canvas.width, 'x', canvas.height)
 
-      // 얼굴 감지 (returnTensors: false로 설정)
-      const predictions = await model.estimateFaces(canvas, false)
+      // 얼굴 감지 (SSD Mobilenet 사용 - 더 정확함)
+      const detections = await faceapi
+        .detectAllFaces(canvas, new faceapi.SsdMobilenetv1Options({ minConfidence: 0.7 }))
 
-      console.log('Detected faces:', predictions.length, predictions)
+      console.log('Detected faces:', detections.length)
 
-      return predictions
+      return detections
     } catch (err) {
       console.error('Face detection failed:', err)
       // 에러를 throw하지 않고 빈 배열 반환
@@ -166,21 +142,18 @@ export const useCriminalFaceTest = () => {
       if (!options.skipFaceDetection) {
         faces = await detectFace(image)
 
-        // 얼굴이 감지되지 않으면 경고
+        // 얼굴이 감지되지 않으면 에러
         if (!faces || faces.length === 0) {
-          // faceDetectionWarning = '얼굴을 감지하지 못했습니다'
-          console.log('No faces detected, but continuing with analysis')
+          throw new Error('얼굴을 인식할 수 없어요. 얼굴이 잘 보이는 다른 사진을 올려주세요.')
         }
 
-        // 여러 얼굴이 감지되면 경고
+        // 여러 얼굴이 감지되면 에러
         if (faces.length > 1) {
-          faceDetectionWarning = `${faces.length}명의 얼굴이 감지되었습니다`
+          throw new Error(`${faces.length}명의 얼굴이 감지되었어요. 한 명의 얼굴만 있는 사진을 올려주세요.`)
         }
 
         // 얼굴이 감지되면 성공 로그
-        if (faces.length === 1) {
-          console.log('✓ Face detected successfully!')
-        }
+        console.log('✓ Face detected successfully!')
       }
 
       // 분석 시뮬레이션 (1.5~2.5초 대기)

@@ -12,9 +12,8 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@tensorflow-models/blazeface": "^0.0.7",
-    "@tensorflow/tfjs": "^4.17.0",
     "@vitejs/plugin-vue": "^5.0.0",
+    "face-api.js": "^0.22.2",
     "pinia": "^2.1.7",
     "vite": "^5.0.0",
     "vue": "^3.4.0",
