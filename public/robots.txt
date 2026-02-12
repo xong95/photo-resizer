@@ -1,0 +1,27 @@
+# robots.txt for letstest.cloud
+
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+
+# Disallow admin or internal paths (if any in future)
+# Disallow: /admin
+
+# Sitemap location
+Sitemap: https://letstest.cloud/sitemap.xml
+
+# Crawl-delay (optional, helps with server load)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Bingbot
+Allow: /

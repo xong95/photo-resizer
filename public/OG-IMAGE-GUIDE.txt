@@ -1,0 +1,47 @@
+OG 이미지 생성 가이드
+===================
+
+이 폴더에 'og-image.jpg' 파일을 추가해주세요.
+
+필수 사양:
+---------
+- 크기: 1200 x 630px
+- 포맷: JPG 또는 PNG
+- 파일명: og-image.jpg (정확히 이 이름으로)
+
+추천 내용:
+---------
+1. 서비스 로고나 아이콘 (📷)
+2. "무료 증명사진 만들기" 텍스트
+3. "여권사진 | 이력서사진 | 비자사진" 부제
+4. "letstest.cloud" 도메인 표시
+5. 밝고 깨끗한 배경 (흰색 또는 연한 파란색 추천)
+
+빠른 생성 도구:
+-------------
+- Canva: https://www.canva.com/
+  → "Open Graph Image" 템플릿 검색
+
+- Figma: https://www.figma.com/
+  → 1200x630px 프레임 생성
+
+- 온라인 도구:
+  - https://www.kapwing.com/
+  - https://www.ogimage.gallery/
+
+디자인 팁:
+---------
+- 텍스트는 크고 읽기 쉽게
+- 로고/아이콘은 눈에 띄게
+- 여백을 충분히 두기
+- 모바일에서도 잘 보이는 디자인
+
+완료 후:
+-------
+1. og-image.jpg 파일을 이 폴더(public)에 저장
+2. git add public/og-image.jpg
+3. git commit -m "Add OG image"
+4. git push
+5. 배포 후 테스트:
+   - https://developers.facebook.com/tools/debug/
+   - https://cards-dev.twitter.com/validator
