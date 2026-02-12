@@ -1,17 +1,23 @@
 {
-  "name": "photo-resize-app",
+  "name": "photo-resizer-kr",
   "version": "1.0.0",
-  "type": "module",
+  "description": "한국 증명사진/여권사진 사이징 웹 애플리케이션",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npx vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "@tensorflow/tfjs": "^4.17.0",
+    "@tensorflow-models/blazeface": "^0.0.7",
+    "pinia": "^2.1.7"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
     "vite": "^5.0.0"
   }
 }
