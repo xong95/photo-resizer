@@ -1,0 +1,11 @@
+Apple Touch Icon 생성 필요
+
+아래 사이트에서 favicon.svg를 업로드하여 생성:
+https://realfavicongenerator.net/
+
+또는 Canva에서 180x180px로 제작:
+- 배경: 보라-분홍 그라데이션
+- 아이콘: 카메라 또는 얼굴 이모지
+- 파일명: apple-touch-icon.png
+
+생성 후 이 txt 파일 삭제하세요.
