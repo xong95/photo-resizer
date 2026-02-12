@@ -185,6 +185,92 @@
       <div v-if="shareMessage" class="share-message">
         {{ shareMessage }}
       </div>
+
+      <!-- About 섹션 (SEO 최적화) -->
+      <div class="about-section">
+        <h1 class="about-h1">범죄자 관상 테스트 무료 | AI 얼굴 분석 | 관상 AI 무료 테스트</h1>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">🔍 범죄자 관상 AI 테스트란?</h2>
+          <p>
+            <strong>범죄자 관상 테스트</strong>는 최신 <strong>AI 얼굴 인식 기술</strong>(face-api.js)을 활용한
+            재미있는 <strong>관상 분석 도구</strong>입니다. 사진을 업로드하면 인공지능이 자동으로 얼굴을 감지하고,
+            13가지 관상 유형과의 유사도를 퍼센트로 분석해드립니다.
+          </p>
+          <ul class="keyword-list">
+            <li><strong>무료 관상 테스트</strong> - 회원가입 없이 무제한 이용</li>
+            <li><strong>AI 얼굴 분석</strong> - face-api.js 기반 고정밀 분석</li>
+            <li><strong>범죄자 닮은꼴 찾기</strong> - 재미있는 유사도 분석</li>
+            <li><strong>관상 AI 무료</strong> - 완전 무료 서비스</li>
+          </ul>
+        </section>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">🎯 13가지 관상 유형 분석</h2>
+          <p>
+            <strong>범죄자 얼굴 테스트</strong>는 다양한 관상 카테고리를 제공합니다:
+          </p>
+          <ul class="keyword-list">
+            <li><strong>선한상 테스트</strong> - 착한 사람 관상 분석</li>
+            <li><strong>정직한상 분석</strong> - 정직한 얼굴 특징</li>
+            <li><strong>사기상 테스트</strong> - 사기 관련 관상</li>
+            <li><strong>폭행상 분석</strong> - 폭행 범죄 관상</li>
+            <li><strong>마약상 테스트</strong> - 마약 관련 관상</li>
+            <li><strong>절도상 분석</strong> - 절도 범죄 관상</li>
+            <li><strong>횡령상 테스트</strong> - 횡령 관련 관상</li>
+            <li><strong>도박상 분석</strong> - 도박 중독 관상</li>
+            <li><strong>방화범상 테스트</strong> - 방화 범죄 관상</li>
+            <li><strong>추행범상 분석</strong> - 성범죄 관상</li>
+            <li><strong>음주운전상 테스트</strong> - 음주운전 관상</li>
+            <li><strong>사이버범죄상</strong> - 해킹 범죄 관상</li>
+          </ul>
+        </section>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">✨ 주요 기능</h2>
+          <ul class="keyword-list">
+            <li><strong>AI 얼굴 인식</strong> - 자동 얼굴 감지 및 검증</li>
+            <li><strong>퍼센트 분석</strong> - 13가지 관상 유형별 정밀 분석</li>
+            <li><strong>결과 이미지 생성</strong> - SNS 공유용 고품질 이미지</li>
+            <li><strong>즉시 다운로드</strong> - 1080x1920 Instagram Story 크기</li>
+            <li><strong>개인정보 보호</strong> - 서버 업로드 없는 안전한 처리</li>
+            <li><strong>모바일 최적화</strong> - 스마트폰에서도 완벽 작동</li>
+          </ul>
+        </section>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">🎭 재미있는 관상 테스트 활용법</h2>
+          <ul class="keyword-list">
+            <li><strong>친구들과 함께</strong> - 누가 가장 재미있는 결과가 나올까?</li>
+            <li><strong>SNS 공유</strong> - 인스타그램 스토리로 공유하기</li>
+            <li><strong>프로필 사진 테스트</strong> - 내 프사는 어떤 관상?</li>
+            <li><strong>연예인 관상 분석</strong> - 좋아하는 연예인 얼굴 테스트</li>
+          </ul>
+        </section>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">⚠️ 면책 조항</h2>
+          <p>
+            본 <strong>범죄자 관상 AI 테스트</strong>는 순수한 재미 목적의 엔터테인먼트 서비스입니다.
+            실제 범죄 예측, 성격 판단, 관상학과는 무관하며, 결과는 랜덤으로 생성됩니다.
+            어떠한 과학적 근거도 없으므로 실제 판단의 근거로 사용하지 마십시오.
+          </p>
+        </section>
+
+        <section class="about-subsection">
+          <h2 class="about-h2">🔥 인기 검색어</h2>
+          <p class="tag-cloud">
+            <span class="tag">#범죄자관상테스트</span>
+            <span class="tag">#AI얼굴분석</span>
+            <span class="tag">#관상AI</span>
+            <span class="tag">#무료관상테스트</span>
+            <span class="tag">#얼굴닮은꼴</span>
+            <span class="tag">#선한상테스트</span>
+            <span class="tag">#사기상분석</span>
+            <span class="tag">#재미있는테스트</span>
+          </p>
+        </section>
+      </div>
     </div>
   </div>
 </template>
@@ -861,10 +947,105 @@ const resetTest = () => {
   }
 }
 
+/* About Section (SEO) */
+.about-section {
+  max-width: 900px;
+  margin: 64px auto 0;
+  padding: 48px 32px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.about-h1 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #1a202c;
+  margin: 0 0 32px 0;
+  line-height: 1.4;
+  text-align: center;
+  border-bottom: 4px solid #f5576c;
+  padding-bottom: 20px;
+}
+
+.about-subsection {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: #f7fafc;
+  border-radius: 12px;
+  border-left: 4px solid #f5576c;
+}
+
+.about-h2 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #f5576c;
+  margin: 0 0 16px 0;
+}
+
+.about-subsection p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #2d3748;
+  margin: 0 0 16px 0;
+}
+
+.keyword-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+}
+
+.keyword-list li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #4a5568;
+  margin-bottom: 10px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.keyword-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #f5576c;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.tag {
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .criminal-test-page {
     padding: 24px 16px;
+  }
+
+  .about-section {
+    padding: 32px 20px;
+  }
+
+  .about-h1 {
+    font-size: 22px;
+  }
+
+  .about-h2 {
+    font-size: 18px;
   }
 
   .page-title {

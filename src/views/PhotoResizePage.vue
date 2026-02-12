@@ -127,6 +127,37 @@
             </div>
           </div>
         </section>
+
+        <!-- About 섹션 추가 (SEO 최적화) -->
+        <section class="about-detail-section">
+          <h2 class="about-detail-h2">📷 무료 증명사진 온라인 제작 완벽 가이드</h2>
+
+          <div class="about-keywords">
+            <h3>🎯 20+ 롱테일 키워드</h3>
+            <ul class="keyword-grid">
+              <li><strong>증명사진 만들기 무료</strong> - 비용 없이 제작</li>
+              <li><strong>여권사진 규격 맞추기</strong> - 3.5x4.5cm 표준</li>
+              <li><strong>이력서 증명사진 사이즈</strong> - 3x4cm</li>
+              <li><strong>운전면허증 사진 규격</strong> - 표준 규격</li>
+              <li><strong>비자사진 만들기 무료</strong> - 국가별 규격</li>
+              <li><strong>증명사진 리사이징 앱</strong> - 온라인 도구</li>
+              <li><strong>사진 크기 변환 무료</strong> - 자동 변환</li>
+              <li><strong>여권사진 온라인 제작</strong> - 즉시 제작</li>
+              <li><strong>증명사진 배경 제거</strong> - 깔끔한 처리</li>
+              <li><strong>무료 사진 편집 도구</strong> - 다기능</li>
+              <li><strong>증명사진 크기 조정</strong> - 정밀 조정</li>
+              <li><strong>이력서사진 온라인</strong> - 취업용</li>
+              <li><strong>여권사진 DPI 설정</strong> - 고품질</li>
+              <li><strong>증명사진 품질 개선</strong> - 선명하게</li>
+              <li><strong>무료 증명사진 앱</strong> - 앱 불필요</li>
+              <li><strong>사진 규격 자동 맞추기</strong> - AI 처리</li>
+              <li><strong>증명사진 즉시 다운로드</strong> - 빠른 처리</li>
+              <li><strong>여권사진 셀프 제작</strong> - 집에서 제작</li>
+              <li><strong>증명사진 고품질</strong> - 전문가급</li>
+              <li><strong>무료 이미지 리사이징</strong> - 무제한</li>
+            </ul>
+          </div>
+        </section>
       </div>
     </main>
   </div>
@@ -437,6 +468,59 @@ watch([uploadedImage, selectedSpec], () => {
   .info-list li,
   .faq-answer {
     font-size: 14px;
+  }
+}
+
+/* About Detail Section */
+.about-detail-section {
+  margin: 64px 0 32px;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.about-detail-h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin: 0 0 32px 0;
+  text-align: center;
+}
+
+.about-keywords h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+}
+
+.keyword-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.keyword-grid li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+  padding: 12px 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .about-detail-section {
+    padding: 24px 20px;
+  }
+
+  .keyword-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
