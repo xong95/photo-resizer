@@ -1,14 +1,14 @@
 <template>
   <div id="app" class="app">
-    <header class="app-header">
+    <header v-if="showHeaderFooter" class="app-header">
       <div class="header-content">
         <router-link to="/" class="app-title-link">
           <h1 class="app-title">
-            <span class="title-icon">📷</span>
-            증명사진/여권사진 리사이징
+            <span class="title-icon">🎭</span>
+            AI 재미 테스트
           </h1>
         </router-link>
-        <p class="app-subtitle">클라이언트 기반 이미지 리사이징 도구</p>
+        <p class="app-subtitle">증명사진 리사이징 & 범죄자 관상 테스트</p>
         <nav class="nav-menu">
           <router-link to="/" class="nav-link">홈</router-link>
           <router-link to="/about" class="nav-link">About</router-link>
@@ -21,7 +21,7 @@
       <router-view />
     </main>
 
-    <footer class="app-footer">
+    <footer v-if="showHeaderFooter" class="app-footer">
       <div class="footer-content">
         <div class="footer-links">
           <router-link to="/privacy" class="footer-link">개인정보처리방침</router-link>
@@ -48,9 +48,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 const currentYear = ref(new Date().getFullYear())
+const route = useRoute()
+
+// 메인 페이지와 범죄자 관상 테스트 페이지에서는 헤더/푸터 숨김
+const showHeaderFooter = computed(() => {
+  return route.path !== '/' && route.path !== '/criminal-face'
+})
 </script>
 
 <style scoped>

@@ -4,12 +4,28 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-  <!-- 홈페이지 (메인 서비스) -->
+  <!-- 메인 페이지 -->
   <url>
     <loc>https://letstest.cloud/</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- 범죄자 관상 테스트 -->
+  <url>
+    <loc>https://letstest.cloud/criminal-face</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 증명사진 리사이징 -->
+  <url>
+    <loc>https://letstest.cloud/photo-resize</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- About 페이지 -->

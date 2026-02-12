@@ -12,13 +12,13 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "vue": "^3.4.0",
-    "vue-router": "^4.2.5",
-    "@tensorflow/tfjs": "^4.17.0",
     "@tensorflow-models/blazeface": "^0.0.7",
+    "@tensorflow/tfjs": "^4.17.0",
+    "@vitejs/plugin-vue": "^5.0.0",
     "pinia": "^2.1.7",
     "vite": "^5.0.0",
-    "@vitejs/plugin-vue": "^5.0.0"
+    "vue": "^3.4.0",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
